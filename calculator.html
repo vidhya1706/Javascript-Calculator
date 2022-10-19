@@ -135,7 +135,7 @@
         for (var i = 0; i < ooo.length; i++) {
           const regexExp =
             "(-?\\d+\\.?\\d*)([\\" + ooo[i].join("\\") + "])(-?\\d+\\.?\\d*)";
-          while (input.match(regexExp)) {
+          while (input?.toString().match(regexExp)) {
             const matchedWords = input.match(regexExp);
             output = calc_internal(
               matchedWords[1],
@@ -150,17 +150,17 @@
 
       function onEnterValue(value) {
         const inputElem = document.getElementsByClassName("input");
-        const elem = document.getElementsByClassName("calculated-result");
+        const resultElem = document.getElementsByClassName("calculated-result");
         let curValue = inputElem[0].innerHTML;
         const inputElemClassList = inputElem[0].classList;
-        const elemClassList = elem[0].classList;
+        const resultElemClassList = resultElem[0].classList;
         if (inputElemClassList.contains("text-small")) {
           inputElem[0].classList.remove("text-small");
           inputElem[0].classList.add("text-big");
         }
-        if (elemClassList.contains("text-big")) {
-          elem[0].classList.remove("text-big");
-          elem[0].classList.add("text-small");
+        if (resultElemClassList.contains("text-big")) {
+          resultElem[0].classList.remove("text-big");
+          resultElem[0].classList.add("text-small");
         }
 
         if (value === "AC") {
@@ -169,14 +169,15 @@
           curValue = curValue.substring(0, curValue.length - 1);
         } else if (value === "=") {
           const inputElemClassList = inputElem[0].classList;
-          const elemClassList = elem[0].classList;
+          const resultElemClassList = resultElem[0].classList;
+          resultElem[0].classList.add("active");
           if (inputElemClassList.contains("text-big")) {
             inputElem[0].classList.remove("text-big");
             inputElem[0].classList.add("text-small");
           }
-          if (elemClassList.contains("text-small")) {
-            elem[0].classList.remove("text-small");
-            elem[0].classList.add("text-big");
+          if (resultElemClassList.contains("text-small")) {
+            resultElem[0].classList.remove("text-small");
+            resultElem[0].classList.add("text-big");
           }
         } else if (
           value === "+" ||
@@ -185,13 +186,23 @@
           value === "÷"
         ) {
           if (value !== curValue.at(curValue.length - 1)) {
-            curValue = curValue + value;
+            if (resultElemClassList.contains("active")) {
+              resultElem[0].classList.remove("active");
+              curValue = resultElem[0].innerHTML + value;
+            } else {
+              curValue = curValue + value;
+            }
           }
         } else {
-          curValue = curValue + value;
+          if (resultElemClassList.contains("active")) {
+            resultElem[0].classList.remove("active");
+            curValue = 0 + value;
+          } else {
+            curValue = curValue + value;
+          }
         }
         inputElem[0].innerHTML = curValue;
-        elem[0].innerHTML = calc(curValue);
+        resultElem[0].innerHTML = calc(curValue);
       }
     </script>
   </body>
