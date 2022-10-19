@@ -68,9 +68,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
       }
-      .op {
-        background: #212121;
+      .operator {
+        background-color: #212121;
+        border-radius: 50%;
+      }
+      .equalto {
+        background-color: #febe34;
         border-radius: 50%;
       }
     </style>
@@ -82,33 +87,28 @@
         <p class="calculated-result text-small"></p>
       </div>
       <div class="number-pad-wrapper">
-        <div onclick="onEnterValue('AC')">AC</div>
-        <div onclick="onEnterValue('x')">
-          <i class="fa-solid fa-delete-left"></i>
-        </div>
-        <div onclick="onEnterValue('%')" class="op">%</div>
-        <div onclick="onEnterValue('÷')" class="op">&divide;</div>
-
         <div onclick="onEnterValue(7)">7</div>
         <div onclick="onEnterValue(8)">8</div>
         <div onclick="onEnterValue(9)">9</div>
-        <div onclick="onEnterValue('×')" class="op">×</div>
+        <div onclick="onEnterValue('÷')" class="operator">&divide;</div>
 
         <div onclick="onEnterValue(4)">4</div>
         <div onclick="onEnterValue(5)">5</div>
         <div onclick="onEnterValue(6)">6</div>
-        <div onclick="onEnterValue('-')" class="op">-</div>
+        <div onclick="onEnterValue('×')" class="operator">×</div>
 
         <div onclick="onEnterValue(1)">1</div>
         <div onclick="onEnterValue(2)">2</div>
         <div onclick="onEnterValue(3)">3</div>
-        <div onclick="onEnterValue('+')" class="op">+</div>
-        <div style="grid-column: span 2" onclick="onEnterValue(0)">0</div>
-        <div style="grid-column: span 2" onclick="onEnterValue('=')">=</div>
+        <div onclick="onEnterValue('+')" class="operator">+</div>
+
+        <div onclick="onEnterValue(0)">0</div>
+        <div onclick="onEnterValue('AC')">AC</div>
+        <div onclick="onEnterValue('=')" class="equalto">=</div>
+        <div onclick="onEnterValue('-')" class="operator">-</div>
       </div>
     </div>
     <script>
-      // let input = "88+2/3-33+56/77+400-900+21%3";
       function calc_internal(a, op, b) {
         a = a * 1;
         b = b * 1;
@@ -129,7 +129,7 @@
       function calc(input) {
         var output;
         var ooo = [
-          [["×"], ["÷"], ["%"]],
+          [["×"], ["÷"]],
           [["+"], ["-"]],
         ];
         for (var i = 0; i < ooo.length; i++) {
@@ -145,7 +145,7 @@
             input = input.replace(matchedWords[0], output);
           }
         }
-        return output || "";
+        return output ?? "";
       }
 
       function onEnterValue(value) {
