@@ -75,8 +75,14 @@
         border-radius: 50%;
       }
       .equalto {
-        background-color: #febe34;
-        border-radius: 50%;
+        background-color: #837f78;
+        border-radius: 3px;
+        width: 80%;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 25px;
       }
     </style>
   </head>
@@ -87,6 +93,18 @@
         <p class="calculated-result text-small"></p>
       </div>
       <div class="number-pad-wrapper">
+        <div
+          onclick="onEnterValue('AC')"
+          style="grid-column-start: 1; grid-column-end: 3"
+        >
+          AC
+        </div>
+        <div
+          onclick="onEnterValue('x')"
+          style="grid-column-start: 3; grid-column-end: 5"
+        >
+          <i class="fa-solid fa-delete-left"></i>
+        </div>
         <div onclick="onEnterValue(7)">7</div>
         <div onclick="onEnterValue(8)">8</div>
         <div onclick="onEnterValue(9)">9</div>
@@ -103,8 +121,13 @@
         <div onclick="onEnterValue('+')" class="operator">+</div>
 
         <div onclick="onEnterValue(0)">0</div>
-        <div onclick="onEnterValue('AC')">AC</div>
-        <div onclick="onEnterValue('=')" class="equalto">=</div>
+
+        <div
+          onclick="onEnterValue('=')"
+          style="grid-column-start: 2; grid-column-end: 4"
+        >
+          <div class="equalto">=</div>
+        </div>
         <div onclick="onEnterValue('-')" class="operator">-</div>
       </div>
     </div>
